@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 27%;
+  left: 36%;
+  width: 30%;
+  border: 2px solid black;
+  padding: 30px;
+}
+
+.header {
+  text-align: center;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 100%;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.sign-up {
+  cursor: pointer;
+  margin: 10px;
+  padding: 20px;
+  font-size: 15px;
+  border-radius: 4px;
+  background: #428bca;
+  color: white;
+}
+
+.login {
+  cursor: pointer;
+  margin: 10px;
+  padding: 20px;
+  font-size: 15px;
+  border-radius: 4px;
+  background: #428bca;
+  color: white;
+}
+
+.email {
+  height: 40px;
+  margin: 20px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.password {
+  height: 40px;
+  margin: 20px;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.error-message {
+  font-size: 18px;
+  margin: 30px;
+  padding: 10px;
+  border-radius: 4px;
+}

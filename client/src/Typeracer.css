@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  border: 2px solid black;
+  padding: 15px;
+}
+
+.para-container {
+  margin: 30px;
+  text-align: center;
+}
+
+.input_button-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 100%;
+}
+#inputValue {
+  text-align: center;
+  height: 40px;
+  font-size: 15px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+}
+
+.timer {
+  padding: 15px;
+  margin: 10px;
+  background: #333;
+  color: white;
+  border-radius: 3px;
+  font-size: 20px;
+}
+
+.start_btn {
+  padding: 15px;
+  margin: 10px;
+  cursor: pointer;
+  background: #428bca;
+  color: white;
+  border-radius: 3px;
+  font-size: 20px;
+}
+
+#typedValue {
+  margin: 30px;
+}
+
+.span-color {
+  color: black;
+}
+
+.span-color-green {
+  color: green;
+}
+
+.span-color-red {
+  color: red;
+}

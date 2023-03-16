@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+.scoreboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 50px;
+  height: 150px;
+}
+
+.player-1 {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  width: 50%;
+  height: 100%;
+}
+
+.player-2 {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  width: 50%;
+  height: 100%;
+}
