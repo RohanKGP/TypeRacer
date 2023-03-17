@@ -27,6 +27,7 @@
   font-size: 18px;
   padding: 15px;
   margin-bottom: 30px;
+  margin-top: 30px;
   border-radius: 4px;
   color: white;
   background: black;
@@ -55,4 +56,9 @@
   cursor: pointer;
   color: white;
   background: blue;
+}
+
+.generated-code {
+  margin: 20px;
+  text-align: center;
 }
