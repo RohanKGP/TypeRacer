@@ -6,6 +6,7 @@ const app = express();
 const PORT = 3000;
 
 const user_routes = require("./routes/user");
+const invite_routes = require("./routes/invite");
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 // middleware or to set router
 
 app.use("/api/user", user_routes);
+app.use("/api/invite", invite_routes);
 
 const start = async () => {
   try {
