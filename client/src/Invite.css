@@ -5,66 +5,71 @@
   font-family: "Lato", sans-serif;
 }
 
-.main-container {
+.invite-main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50vh;
-  border: 2px solid black;
-  padding: 15px;
-  position: relative;
-}
-
-.header {
   position: absolute;
-  top: 50px;
+  top: 27%;
+  left: 36%;
+  width: 30%;
+  border: 2px solid black;
+  padding: 30px;
 }
 
-.generate-btn {
+.invite-main-heading {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.invite-header {
+  margin: 20px;
+}
+
+.invite-generate-btn {
   border: none;
   cursor: pointer;
   font-size: 18px;
   padding: 15px;
-  margin-bottom: 30px;
-  margin-top: 30px;
   border-radius: 4px;
   color: white;
   background: black;
+  margin: 10px;
 }
 
-.type-code {
-  margin: 15px;
-  text-align: center;
+.invite-type-code {
   border: 2px solid black;
-  height: 40px;
+  height: 50px;
+  margin: 20px;
+  text-align: center;
 }
 
-.input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
+.invite-input-container {
+  height: 100px;
 }
 
-.enter-code {
-  margin: 4px;
-  padding: 10px;
-  height: 40px;
+.invite-enter-code {
   border-radius: 4px;
   font-size: 18px;
   cursor: pointer;
   color: white;
   background: blue;
+  text-align: center;
+  padding: 10px;
 }
 
-.generated-code-container {
-  margin: 20px;
+.invite-generated-code-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
   text-align: center;
 }
 
-.generated-code {
-  margin: 10px;
-  font-size: 25px;
+.invite-generated-code {
   text-align: center;
+  font-size: 30px;
+  margin-top: 30x;
 }

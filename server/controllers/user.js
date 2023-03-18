@@ -15,7 +15,7 @@ const redisClient = redis.createClient({
 redisClient.connect();
 
 redisClient.on("connect", () => {
-  console.log("Connected to Redis");
+  console.log("Connected to Redis on user page");
 });
 
 // Todo: All Controller Functions

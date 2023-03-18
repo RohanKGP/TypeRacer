@@ -71,7 +71,6 @@ function Typeracer() {
     if (event.code === "Space" && isRunning) {
       let newValue = value.trim(); // Remove White Spaces Created by HandleChange
       tempword = newValue;
-      console.log(wordColor);
       if (tempword === listWords[counter]) {
         // counter maintains state to check Words
         setWordColor((prev) => [...prev, 1]);

@@ -1,7 +1,8 @@
 // Todo : Importing Modules
-
+const { sendEvent } = require("../utils/websocket");
 const randomstring = require("randomstring");
 const redis = require("redis");
+const { peerConnected } = require("../utils/constants");
 
 // Todo: implement redis Client
 
@@ -12,7 +13,7 @@ const redisClient = redis.createClient({
 redisClient.connect();
 
 redisClient.on("connect", () => {
-  console.log("Connected to Redis");
+  console.log("Connected to Redis on invite page");
 });
 
 // Todo: All Controller Functions
@@ -42,6 +43,20 @@ const checkCode = (req, res) => {
         success: false,
       });
     } else {
+      console.log(`EMail : ${user.username}`);
+      // handle successful token
+      // sending B data about A
+      sendEvent(user.username, {
+        evType: `${peerConnected}`,
+        Data: `${reply}`,
+      });
+
+      // Send A data about B
+      sendEvent(reply, {
+        evType: `${peerConnected}`,
+        Data: user.username,
+      });
+
       return res.status(200).json({
         success: true,
       });

@@ -1,3 +1,4 @@
+const { startWsServer } = require("./utils/websocket");
 const express = require("express");
 var cors = require("cors");
 
@@ -20,14 +21,8 @@ app.get("/", (req, res) => {
 app.use("/api/user", user_routes);
 app.use("/api/invite", invite_routes);
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => {
-      console.log(`${PORT}, Connected`);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+const server = app.listen(PORT, () => {
+  console.log(`Express server listening on port ${PORT}`);
+});
 
-start();
+startWsServer(server);

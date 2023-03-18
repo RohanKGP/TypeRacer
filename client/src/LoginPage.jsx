@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Invite from "./Invite";
 import "./LoginPage.css";
-import Typeracer from "./Typeracer";
+// import Typeracer from "./Typeracer";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -53,31 +54,31 @@ function LoginPage() {
       });
   }
 
-  if (isAuthenticated) return <Typeracer />;
+  if (isAuthenticated) return <Invite email={email} />;
 
   return (
-    <div className="main-container">
-      <div className="error-message">{errorMsg}</div>
-      <h1 className="header">Type Racer</h1>
-      <div className="input-box">
+    <div className="login-main-container">
+      <div className="login-error-message">{errorMsg}</div>
+      <h1 className="login-header">Type Racer</h1>
+      <div className="login-input-box">
         <input
           type="text"
           placeholder="Email"
-          className="email"
+          className="login-email"
           onChange={handleEmail}
         />
         <input
           type="text"
           placeholder="Password"
-          className="password"
+          className="login-password"
           onChange={handlePassword}
         />
       </div>
-      <div className="btns">
-        <button className="sign-up" onClick={() => Signup(true)}>
+      <div className="login-btns">
+        <button className="login-sign-up" onClick={() => Signup(true)}>
           Sign Up
         </button>
-        <button className="login" onClick={() => Signup(false)}>
+        <button className="login-login" onClick={() => Signup(false)}>
           Login
         </button>
       </div>

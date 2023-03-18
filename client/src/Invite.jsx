@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Invite.css";
+import { evRegister } from "./constants";
 import Typeracer from "./Typeracer";
 
-function Invite() {
-  var email = "meshramrohan786@gmail.com";
+const URL = "ws://localhost:3000";
+
+function Invite(props) {
+  const email = props.email;
   const [codeValue, setCodeValue] = useState("");
   const [generatedCode, setGenratedCode] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [auth, setAuth] = useState(false);
+  const [invited, setInvited] = useState(false);
+  const [waitmsg, setWaitMsg] = useState("");
+  const [connectedTo, setConnectedTo] = useState("");
 
   function genrateCode() {
     var url = "http://localhost:3000/api/invite/generateCode";
@@ -28,6 +33,8 @@ function Invite() {
       .catch((error) => {
         console.log(error);
       });
+
+    setWaitMsg("Wating for a user to Join");
   }
 
   function handleSubmit() {
@@ -44,10 +51,8 @@ function Invite() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success === true) {
-          setAuth(true);
-        } else {
-          setAuth(false);
+        if (data.success === false) {
+          setInvited(false);
           setErrorMsg(data.message);
         }
       })
@@ -60,34 +65,74 @@ function Invite() {
     setCodeValue(event.target.value);
   }
 
-  if (auth) {
+  function handleMsg(data) {
+    if (data.evType == 3) {
+      setConnectedTo(data.Data);
+    }
+  }
+
+  // Todo: State for webSocket
+  const [ws, setWs] = useState(new WebSocket(URL));
+
+  // Todo: useEffect for websocket connection
+  useEffect(() => {
+    ws.onopen = () => {
+      ws.send(
+        JSON.stringify({
+          evType: `${evRegister}`,
+          Data: `${email}`,
+        })
+      );
+    };
+
+    ws.onmessage = (event) => {
+      handleMsg(JSON.parse(event.data));
+    };
+
+    return () => {
+      ws.onclose = () => {
+        console.log("WebSocket Disconnected");
+        setWs(new WebSocket(URL));
+      };
+    };
+  }, [ws.onopen, ws.onclose, ws, email]);
+
+  if (invited) {
     return <Typeracer />;
   }
 
   return (
     <>
-      <div className="main-container">
-        <h1 className="header">Invite Friends</h1>
-        <button className="generate-btn" onClick={genrateCode}>
-          Generate Code
-        </button>
-        <div className="input-container">
+      <div className="invite-main-container">
+        <div className="invite-main-heading">
+          <h1 className="invite-header">Invite Friends</h1>
+          <button className="invite-generate-btn" onClick={genrateCode}>
+            Generate Code
+          </button>
+        </div>
+        <div className="invite-input-container">
           <input
-            className="type-code"
+            className="invite-type-code"
             type="text"
             placeholder="Invite Code"
             onChange={handleTypedCode}
           />
-          <button className="enter-code" onClick={handleSubmit}>
+          <button className="invite-enter-code" onClick={handleSubmit}>
             Enter
           </button>
         </div>
-        <div className="generated-code-container">
+        <div className="invite-generated-code-container">
           <h2> Invitation Code: </h2>
-          <p className="generated-code">{generatedCode}</p>
+          <p className="invite-generated-code">{generatedCode}</p>
         </div>
         <>
           <p>{errorMsg}</p>
+        </>
+        <>
+          <p>{waitmsg}</p>
+        </>
+        <>
+          <p>{`You are Connected To : ${connectedTo}`}</p>
         </>
       </div>
     </>
