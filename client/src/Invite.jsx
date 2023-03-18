@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./Invite.css";
+import Typeracer from "./Typeracer";
 
 function Invite() {
   var email = "meshramrohan786@gmail.com";
   const [codeValue, setCodeValue] = useState("");
   const [generatedCode, setGenratedCode] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [auth, setAuth] = useState(false);
 
   function genrateCode() {
     var url = "http://localhost:3000/api/invite/generateCode";
@@ -41,7 +44,12 @@ function Invite() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.success === true) {
+          setAuth(true);
+        } else {
+          setAuth(false);
+          setErrorMsg(data.message);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -51,6 +59,11 @@ function Invite() {
   function handleTypedCode(event) {
     setCodeValue(event.target.value);
   }
+
+  if (auth) {
+    return <Typeracer />;
+  }
+
   return (
     <>
       <div className="main-container">
@@ -73,6 +86,9 @@ function Invite() {
           <h2> Invitation Code: </h2>
           <p className="generated-code">{generatedCode}</p>
         </div>
+        <>
+          <p>{errorMsg}</p>
+        </>
       </div>
     </>
   );

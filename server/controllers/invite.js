@@ -31,7 +31,23 @@ const genrateCode = (req, res) => {
   });
 };
 
-const checkCode = (req, res) => {};
+const checkCode = (req, res) => {
+  // Checking code in redis
+
+  const user = req.body;
+  redisClient.get(user.enteredCode).then((reply) => {
+    if (reply === null) {
+      return res.status(200).json({
+        message: "Invalid Code",
+        success: false,
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+      });
+    }
+  });
+};
 
 module.exports = {
   genrateCode,
