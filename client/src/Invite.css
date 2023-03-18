@@ -58,7 +58,13 @@
   background: blue;
 }
 
-.generated-code {
+.generated-code-container {
   margin: 20px;
+  text-align: center;
+}
+
+.generated-code {
+  margin: 10px;
+  font-size: 25px;
   text-align: center;
 }

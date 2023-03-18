@@ -23,12 +23,17 @@ const genrateCode = (req, res) => {
   const user = req.body;
   const generatedCode = randomstring.generate(4);
 
+  redisClient.set(generatedCode, user.username);
+
   return res.status(200).json({
     username: `${user.username}`,
     generatedCode: `${generatedCode}`,
   });
 };
 
+const checkCode = (req, res) => {};
+
 module.exports = {
   genrateCode,
+  checkCode,
 };
