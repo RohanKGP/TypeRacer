@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Invite from "./Invite";
 import "./LoginPage.css";
+import Typeracer from "./Typeracer";
 // import Typeracer from "./Typeracer";
 
 function LoginPage() {
@@ -8,6 +8,8 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setAuthStatus] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const showInviteBtn = true;
 
   // Todo: getting email and password from Input Text Box
 
@@ -54,7 +56,8 @@ function LoginPage() {
       });
   }
 
-  if (isAuthenticated) return <Invite email={email} />;
+  if (isAuthenticated)
+    return <Typeracer email={email} showInviteBtn={showInviteBtn} />;
 
   return (
     <div className="login-main-container">

@@ -35,11 +35,11 @@ function sendEvent(userId, data) {
 function handleWsMessage(msg, ws, wss) {
   console.log(`Message ${msg}`);
   ev = JSON.parse(msg);
-  if (ev.evType == 1) {
+  if (parseInt(ev.evType) === 1) {
     clients.push({ id: ev.Data, socket: ws });
   }
 
-  if (ev.evType == evWPM) {
+  if (parseInt(ev.evType) === evWPM) {
     console.log(`WPMData : ${ev.Data}`);
   }
 }

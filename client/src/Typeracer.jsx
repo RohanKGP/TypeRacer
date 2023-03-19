@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ScoreBoard from "./ScoreBoard";
+import Invite from "./Invite";
+import InviteBtn from "./InviteBtn";
+import SCSingle from "./SCSingle";
 import "./Typeracer.css";
 
-function Typeracer() {
+function Typeracer(props) {
   // Todo: State Values for Gameplay
 
   const [value, setvalue] = useState("");
@@ -15,7 +17,8 @@ function Typeracer() {
   const [startTime, setStartTime] = useState(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [wordColor, setWordColor] = useState([]);
-  var wordClass = "span-color";
+  const [inviteAuth, setInviteAuth] = useState(false);
+  var wordClass = "typeRacer-span-color";
 
   useEffect(() => {
     let interval;
@@ -89,11 +92,23 @@ function Typeracer() {
     setvalue(event.target.value);
   }
 
+  function handleInvite() {
+    console.log(`${props.email}`);
+    setInviteAuth(true);
+  }
+
+  if (inviteAuth) return <Invite email={props.email} />;
+
   return (
     <div>
-      <ScoreBoard />
-      <div className="main-container">
-        <div className="para-container">
+      <>
+        {(props.showSCSingle || props.showInviteBtn) && (
+          <SCSingle email={props.email} />
+        )}
+      </>
+      <div className="typeRacer-main-container">
+        {props.showInviteBtn && <InviteBtn handleInvite={handleInvite} />}
+        <div className="typeRacer-para-container">
           <p>
             {listWords.map((word, index) => {
               let wordCl;
@@ -108,7 +123,7 @@ function Typeracer() {
             })}
           </p>
         </div>
-        <div className="input_button-container">
+        <div className="typeRacer-input_button-container">
           <input
             id="inputValue"
             value={value}
@@ -118,9 +133,9 @@ function Typeracer() {
             onKeyDown={handleKeyDown}
           />
         </div>
-        <div className="footer">
-          <div className="timer">{formatTime(currentTime)}</div>
-          <button className="start_btn" onClick={reset}>
+        <div className="typeRacer-footer">
+          <div className="typeRacer-timer">{formatTime(currentTime)}</div>
+          <button className="typeRacer-start_btn" onClick={reset}>
             Reset
           </button>
         </div>

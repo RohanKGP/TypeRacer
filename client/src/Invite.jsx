@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Invite.css";
 import { evRegister } from "./constants";
-import Typeracer from "./Typeracer";
+import Multiplayer from "./Multiplayer";
 
 const URL = "ws://localhost:3000";
 
@@ -66,8 +66,10 @@ function Invite(props) {
   }
 
   function handleMsg(data) {
-    if (data.evType == 3) {
+    console.log(data);
+    if (parseInt(data.evType) === 3) {
       setConnectedTo(data.Data);
+      setInvited(true);
     }
   }
 
@@ -98,7 +100,8 @@ function Invite(props) {
   }, [ws.onopen, ws.onclose, ws, email]);
 
   if (invited) {
-    return <Typeracer />;
+    console.log(`username: ${email}`);
+    return <Multiplayer player1={email} player2={connectedTo} />;
   }
 
   return (
