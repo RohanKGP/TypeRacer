@@ -18,6 +18,7 @@ function Typeracer(props) {
   const [currentTime, setCurrentTime] = useState(0);
   const [wordColor, setWordColor] = useState([]);
   const [inviteAuth, setInviteAuth] = useState(false);
+  const [WPM, setWPM] = useState("");
   var wordClass = "typeRacer-span-color";
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function Typeracer(props) {
     if (isRunning) {
       interval = setInterval(() => {
         const elapdsedTime = Date.now() - startTime;
-        if (elapdsedTime >= 100000) {
+        if (elapdsedTime >= 60000) {
           stop();
         } else {
           setCurrentTime(elapdsedTime);
@@ -40,16 +41,21 @@ function Typeracer(props) {
   function start() {
     setIsRunning(true);
     setStartTime(Date.now());
+    setWPM(0);
   }
 
   function stop() {
     setIsRunning(false);
+    setCounter(0);
+    setWPM(0);
   }
 
   function reset() {
+    setCounter(0);
     setIsRunning(false);
     setCurrentTime(0);
     setWordColor([]);
+    setWPM(0);
   }
 
   // Format Time
@@ -84,7 +90,8 @@ function Typeracer(props) {
       }
 
       setvalue("");
-      setCounter(counter + 1); // increase count one by one
+      setCounter(counter + 1);
+      setWPM(Math.floor((60 * (counter + 1)) / (currentTime / 1000)));
     }
   }
 
@@ -103,7 +110,7 @@ function Typeracer(props) {
     <div>
       <>
         {(props.showSCSingle || props.showInviteBtn) && (
-          <SCSingle email={props.email} />
+          <SCSingle email={props.email} WPM={WPM} />
         )}
       </>
       <div className="typeRacer-main-container">
