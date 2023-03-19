@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import Typeracer from "./Typeracer";
-// import Typeracer from "./Typeracer";
+import SinglePlayer from "./SinglePlayer";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,9 +25,9 @@ function LoginPage() {
   function Signup(signup) {
     let url = "";
     if (signup) {
-      url = "http://localhost:3000/api/user/addUser";
+      url = "http://192.168.1.117:3000/api/user/addUser";
     } else {
-      url = "http://localhost:3000/api/user/loginUser";
+      url = "http://192.168.1.117:3000/api/user/loginUser";
     }
 
     fetch(url, {
@@ -44,7 +43,6 @@ function LoginPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           setAuthStatus(true);
         } else {
@@ -57,7 +55,7 @@ function LoginPage() {
   }
 
   if (isAuthenticated)
-    return <Typeracer email={email} showInviteBtn={showInviteBtn} />;
+    return <SinglePlayer email={email} showInviteBtn={showInviteBtn} />;
 
   return (
     <div className="login-main-container">

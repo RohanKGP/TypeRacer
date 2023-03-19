@@ -48,13 +48,13 @@ const checkCode = (req, res) => {
       // sending B data about A
       sendEvent(user.username, {
         evType: `${peerConnected}`,
-        Data: `${reply}`,
+        data: `${reply}`,
       });
 
       // Send A data about B
       sendEvent(reply, {
         evType: `${peerConnected}`,
-        Data: user.username,
+        data: user.username,
       });
 
       return res.status(200).json({

@@ -3,7 +3,7 @@ import "./Invite.css";
 import { evRegister } from "./constants";
 import Multiplayer from "./Multiplayer";
 
-const URL = "ws://localhost:3000";
+const URL = "ws://192.168.1.117:3000";
 
 function Invite(props) {
   const email = props.email;
@@ -13,9 +13,11 @@ function Invite(props) {
   const [invited, setInvited] = useState(false);
   const [waitmsg, setWaitMsg] = useState("");
   const [connectedTo, setConnectedTo] = useState("");
+  // Todo: State for webSocket
+  const [ws, setWs] = useState(new WebSocket(URL));
 
   function genrateCode() {
-    var url = "http://localhost:3000/api/invite/generateCode";
+    var url = "http://192.168.1.117:3000/api/invite/generateCode";
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -38,7 +40,7 @@ function Invite(props) {
   }
 
   function handleSubmit() {
-    var url = "http://localhost:3000/api/invite/checkCode";
+    var url = "http://192.168.1.117:3000/api/invite/checkCode";
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -66,15 +68,14 @@ function Invite(props) {
   }
 
   function handleMsg(data) {
-    console.log(data);
+    console.log(`Invite data : ${JSON.stringify(data)}`);
     if (parseInt(data.evType) === 3) {
-      setConnectedTo(data.Data);
-      setInvited(true);
+      if (data.data !== "") {
+        setConnectedTo(data.data);
+        setInvited(true);
+      }
     }
   }
-
-  // Todo: State for webSocket
-  const [ws, setWs] = useState(new WebSocket(URL));
 
   // Todo: useEffect for websocket connection
   useEffect(() => {
@@ -82,14 +83,14 @@ function Invite(props) {
       ws.send(
         JSON.stringify({
           evType: `${evRegister}`,
-          Data: `${email}`,
+          data: `${email}`,
         })
       );
     };
 
-    ws.onmessage = (event) => {
+    ws.addEventListener("message", (event) => {
       handleMsg(JSON.parse(event.data));
-    };
+    });
 
     return () => {
       ws.onclose = () => {
@@ -100,8 +101,9 @@ function Invite(props) {
   }, [ws.onopen, ws.onclose, ws, email]);
 
   if (invited) {
-    console.log(`username: ${email}`);
-    return <Multiplayer player1={email} player2={connectedTo} />;
+    return (
+      <Multiplayer email={email} peer={connectedTo} ws={ws} setWs={setWs} />
+    );
   }
 
   return (

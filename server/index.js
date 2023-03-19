@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", user_routes);
 app.use("/api/invite", invite_routes);
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Express server listening on port ${PORT}`);
 });
 

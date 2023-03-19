@@ -10,7 +10,7 @@ function startWsServer(server) {
     console.log(`WebSocket client Connected -- Server`);
 
     ws.on("message", (message) => {
-      handleWsMessage(message, ws, wss);
+      handleWsMessage(message, ws);
     });
 
     ws.onclose = () => {
@@ -32,15 +32,15 @@ function sendEvent(userId, data) {
   });
 }
 
-function handleWsMessage(msg, ws, wss) {
-  console.log(`Message ${msg}`);
+function handleWsMessage(msg, ws) {
   ev = JSON.parse(msg);
   if (parseInt(ev.evType) === 1) {
-    clients.push({ id: ev.Data, socket: ws });
+    clients.push({ id: ev.data, socket: ws });
   }
 
   if (parseInt(ev.evType) === evWPM) {
-    console.log(`WPMData : ${ev.Data}`);
+    console.log(`Ev : ${JSON.stringify(ev)}`);
+    sendEvent(ev.peer, { evType: evWPM, data: ev.data });
   }
 }
 

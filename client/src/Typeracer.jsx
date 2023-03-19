@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Invite from "./Invite";
 import InviteBtn from "./InviteBtn";
 import SCSingle from "./SCSingle";
+import SCMulti from "./SCMulti";
 import "./Typeracer.css";
 
 function Typeracer(props) {
@@ -18,12 +19,13 @@ function Typeracer(props) {
   const [currentTime, setCurrentTime] = useState(0);
   const [wordColor, setWordColor] = useState([]);
   const [inviteAuth, setInviteAuth] = useState(false);
-  const [WPM, setWPM] = useState("");
+  // const [WPM, setWPM] = useState("");
+  const WPM = props.myWPM;
+  const setWPM = props.setMyWPM;
   var wordClass = "typeRacer-span-color";
 
   useEffect(() => {
     let interval;
-    console.log(`isRunning effect: ${isRunning}`);
     if (isRunning) {
       interval = setInterval(() => {
         const elapdsedTime = Date.now() - startTime;
@@ -47,7 +49,6 @@ function Typeracer(props) {
   function stop() {
     setIsRunning(false);
     setCounter(0);
-    setWPM(0);
   }
 
   function reset() {
@@ -69,7 +70,8 @@ function Typeracer(props) {
       .padStart(2, "0")}.${milliseconds.toString().padStart(2, "0")}`;
   }
 
-  const list = "Hello my Name is Rohan"; // fetch const list from an API
+  const list =
+    "A Giant Oak stood near a brook in which grew some slender Reeds. When the wind blew, the great Oak stood proudly upright with its hundred arms uplifted to the sky. But the Reeds bowed low in the wind and sang a sad and mournful song."; // fetch const list from an API
   const listWords = list.split(" ");
   function handleKeyDown(event) {
     if (!isRunning && currentTime === 0) {
@@ -100,7 +102,6 @@ function Typeracer(props) {
   }
 
   function handleInvite() {
-    console.log(`${props.email}`);
     setInviteAuth(true);
   }
 
@@ -111,6 +112,16 @@ function Typeracer(props) {
       <>
         {(props.showSCSingle || props.showInviteBtn) && (
           <SCSingle email={props.email} WPM={WPM} />
+        )}
+      </>
+      <>
+        {props.showSCMulti && (
+          <SCMulti
+            email={props.email}
+            peer={props.peer}
+            WPM={WPM}
+            peerWPM={props.peerWPM}
+          />
         )}
       </>
       <div className="typeRacer-main-container">
