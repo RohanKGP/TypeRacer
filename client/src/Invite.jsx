@@ -3,7 +3,7 @@ import "./Invite.css";
 import { evRegister } from "./constants";
 import Multiplayer from "./Multiplayer";
 
-const URL = "ws://192.168.1.117:3000";
+const URL = "ws://localhost:3000";
 
 function Invite(props) {
   const email = props.email;
@@ -17,7 +17,7 @@ function Invite(props) {
   const [ws, setWs] = useState(new WebSocket(URL));
 
   function genrateCode() {
-    var url = "http://192.168.1.117:3000/api/invite/generateCode";
+    var url = "http://localhost:3000/api/invite/generateCode";
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -40,7 +40,7 @@ function Invite(props) {
   }
 
   function handleSubmit() {
-    var url = "http://192.168.1.117:3000/api/invite/checkCode";
+    var url = "http://localhost:3000/api/invite/checkCode";
     fetch(url, {
       method: "POST",
       body: JSON.stringify({

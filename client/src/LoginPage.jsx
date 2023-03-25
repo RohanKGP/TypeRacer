@@ -25,9 +25,9 @@ function LoginPage() {
   function Signup(signup) {
     let url = "";
     if (signup) {
-      url = "http://192.168.1.117:3000/api/user/addUser";
+      url = "http://localhost:3000/api/user/addUser";
     } else {
-      url = "http://192.168.1.117:3000/api/user/loginUser";
+      url = "http://localhost:3000/api/user/loginUser";
     }
 
     fetch(url, {
