@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.invite-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 27%;
+  left: 36%;
+  width: 30%;
+  border: 2px solid black;
+  padding: 30px;
+}
+
+.invite-main-heading {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.invite-header {
+  margin: 20px;
+}
+
+.invite-generate-btn {
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 4px;
+  color: white;
+  background: black;
+  margin: 10px;
+}
+
+.invite-type-code {
+  border: 2px solid black;
+  height: 50px;
+  margin: 20px;
+  text-align: center;
+}
+
+.invite-input-container {
+  height: 100px;
+}
+
+.invite-enter-code {
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+  background: blue;
+  text-align: center;
+  padding: 10px;
+}
+
+.invite-generated-code-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
+  text-align: center;
+}
+
+.invite-generated-code {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 30x;
+}

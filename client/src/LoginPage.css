@@ -5,7 +5,7 @@
   font-family: "Lato", sans-serif;
 }
 
-.main-container {
+.login-main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,18 +18,18 @@
   padding: 30px;
 }
 
-.header {
+.login-header {
   text-align: center;
 }
 
-.input-box {
+.login-input-box {
   display: flex;
   flex-direction: column;
   margin: 10px;
   width: 100%;
 }
 
-.btns {
+.login-btns {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -37,7 +37,7 @@
   margin: 20px;
 }
 
-.sign-up {
+.login-sign-up {
   cursor: pointer;
   margin: 10px;
   padding: 20px;
@@ -47,7 +47,7 @@
   color: white;
 }
 
-.login {
+.login-login {
   cursor: pointer;
   margin: 10px;
   padding: 20px;
@@ -57,7 +57,7 @@
   color: white;
 }
 
-.email {
+.login-email {
   height: 40px;
   margin: 20px;
   text-align: center;
@@ -65,7 +65,7 @@
   font-size: 15px;
 }
 
-.password {
+.login-password {
   height: 40px;
   margin: 20px;
   font-size: 15px;
@@ -73,7 +73,7 @@
   border-radius: 4px;
 }
 
-.error-message {
+.login-error-message {
   font-size: 18px;
   margin: 30px;
   padding: 10px;

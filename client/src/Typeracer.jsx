@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ScoreBoard from "./ScoreBoard";
+import Invite from "./Invite";
+import InviteBtn from "./InviteBtn";
+import SCSingle from "./SCSingle";
+import SCMulti from "./SCMulti";
 import "./Typeracer.css";
 
-function Typeracer() {
+function Typeracer(props) {
   // Todo: State Values for Gameplay
 
   const [value, setvalue] = useState("");
@@ -15,15 +18,18 @@ function Typeracer() {
   const [startTime, setStartTime] = useState(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [wordColor, setWordColor] = useState([]);
-  var wordClass = "span-color";
+  const [inviteAuth, setInviteAuth] = useState(false);
+  // const [WPM, setWPM] = useState("");
+  const WPM = props.myWPM;
+  const setWPM = props.setMyWPM;
+  var wordClass = "typeRacer-span-color";
 
   useEffect(() => {
     let interval;
-    console.log(`isRunning effect: ${isRunning}`);
     if (isRunning) {
       interval = setInterval(() => {
         const elapdsedTime = Date.now() - startTime;
-        if (elapdsedTime >= 100000) {
+        if (elapdsedTime >= 60000) {
           stop();
         } else {
           setCurrentTime(elapdsedTime);
@@ -37,16 +43,20 @@ function Typeracer() {
   function start() {
     setIsRunning(true);
     setStartTime(Date.now());
+    setWPM(0);
   }
 
   function stop() {
     setIsRunning(false);
+    setCounter(0);
   }
 
   function reset() {
+    setCounter(0);
     setIsRunning(false);
     setCurrentTime(0);
     setWordColor([]);
+    setWPM(0);
   }
 
   // Format Time
@@ -60,7 +70,8 @@ function Typeracer() {
       .padStart(2, "0")}.${milliseconds.toString().padStart(2, "0")}`;
   }
 
-  const list = "Hello my Name is Rohan"; // fetch const list from an API
+  const list =
+    "A Giant Oak stood near a brook in which grew some slender Reeds. When the wind blew, the great Oak stood proudly upright with its hundred arms uplifted to the sky. But the Reeds bowed low in the wind and sang a sad and mournful song."; // fetch const list from an API
   const listWords = list.split(" ");
   function handleKeyDown(event) {
     if (!isRunning && currentTime === 0) {
@@ -71,7 +82,6 @@ function Typeracer() {
     if (event.code === "Space" && isRunning) {
       let newValue = value.trim(); // Remove White Spaces Created by HandleChange
       tempword = newValue;
-      console.log(wordColor);
       if (tempword === listWords[counter]) {
         // counter maintains state to check Words
         setWordColor((prev) => [...prev, 1]);
@@ -82,7 +92,8 @@ function Typeracer() {
       }
 
       setvalue("");
-      setCounter(counter + 1); // increase count one by one
+      setCounter(counter + 1);
+      setWPM(Math.floor((60 * (counter + 1)) / (currentTime / 1000)));
     }
   }
 
@@ -90,11 +101,32 @@ function Typeracer() {
     setvalue(event.target.value);
   }
 
+  function handleInvite() {
+    setInviteAuth(true);
+  }
+
+  if (inviteAuth) return <Invite email={props.email} />;
+
   return (
     <div>
-      <ScoreBoard />
-      <div className="main-container">
-        <div className="para-container">
+      <>
+        {(props.showSCSingle || props.showInviteBtn) && (
+          <SCSingle email={props.email} WPM={WPM} />
+        )}
+      </>
+      <>
+        {props.showSCMulti && (
+          <SCMulti
+            email={props.email}
+            peer={props.peer}
+            WPM={WPM}
+            peerWPM={props.peerWPM}
+          />
+        )}
+      </>
+      <div className="typeRacer-main-container">
+        {props.showInviteBtn && <InviteBtn handleInvite={handleInvite} />}
+        <div className="typeRacer-para-container">
           <p>
             {listWords.map((word, index) => {
               let wordCl;
@@ -109,7 +141,7 @@ function Typeracer() {
             })}
           </p>
         </div>
-        <div className="input_button-container">
+        <div className="typeRacer-input_button-container">
           <input
             id="inputValue"
             value={value}
@@ -119,9 +151,9 @@ function Typeracer() {
             onKeyDown={handleKeyDown}
           />
         </div>
-        <div className="footer">
-          <div className="timer">{formatTime(currentTime)}</div>
-          <button className="start_btn" onClick={reset}>
+        <div className="typeRacer-footer">
+          <div className="typeRacer-timer">{formatTime(currentTime)}</div>
+          <button className="typeRacer-start_btn" onClick={reset}>
             Reset
           </button>
         </div>

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import Typeracer from "./Typeracer";
+import SinglePlayer from "./SinglePlayer";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setAuthStatus] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const showInviteBtn = true;
 
   // Todo: getting email and password from Input Text Box
 
@@ -23,9 +25,9 @@ function LoginPage() {
   function Signup(signup) {
     let url = "";
     if (signup) {
-      url = "http://localhost:3000/api/user/addUser";
+      url = "http://192.168.1.117:3000/api/user/addUser";
     } else {
-      url = "http://localhost:3000/api/user/loginUser";
+      url = "http://192.168.1.117:3000/api/user/loginUser";
     }
 
     fetch(url, {
@@ -41,7 +43,6 @@ function LoginPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           setAuthStatus(true);
         } else {
@@ -53,31 +54,32 @@ function LoginPage() {
       });
   }
 
-  if (isAuthenticated) return <Typeracer />;
+  if (isAuthenticated)
+    return <SinglePlayer email={email} showInviteBtn={showInviteBtn} />;
 
   return (
-    <div className="main-container">
-      <div className="error-message">{errorMsg}</div>
-      <h1 className="header">Type Racer</h1>
-      <div className="input-box">
+    <div className="login-main-container">
+      <div className="login-error-message">{errorMsg}</div>
+      <h1 className="login-header">Type Racer</h1>
+      <div className="login-input-box">
         <input
           type="text"
           placeholder="Email"
-          className="email"
+          className="login-email"
           onChange={handleEmail}
         />
         <input
           type="text"
           placeholder="Password"
-          className="password"
+          className="login-password"
           onChange={handlePassword}
         />
       </div>
-      <div className="btns">
-        <button className="sign-up" onClick={() => Signup(true)}>
+      <div className="login-btns">
+        <button className="login-sign-up" onClick={() => Signup(true)}>
           Sign Up
         </button>
-        <button className="login" onClick={() => Signup(false)}>
+        <button className="login-login" onClick={() => Signup(false)}>
           Login
         </button>
       </div>
